@@ -1,0 +1,71 @@
+<!-- <div class="container">
+<img  src="../assets/gris.png" class="img-rounded" alt="Cinque Terre">
+<article [routerLink]="['/detail', article._id]" *ngIf="article">
+<img  class="img-thumbnail" src="{{ article.Picture }}" alt="ALT">
+
+<h1 ><a [routerLink]="['/article', article._id]">{{ article.name }}</a></h1>
+<p >{{ article.Description }}</p>
+<a style="position:relative; top:1000%; margin-left: 8%; z-index:6 ;" routerLink="/article">Back to List</a>
+<a style="position:relative; top:1000%; margin-left: 85%; z-index:6 ;"  target="_blank" href="{{ article.Link}}">View Article</a>
+</article>
+</div>
+
+-->
+
+<div class="container-fluid" style="margin-top:30%">
+  <div class="mycontainer">
+    <div class="row">
+      <div class="col-md-8">
+    
+        <div class="aricle-content">
+   
+          <article [routerLink]="['/detail', article._id]" *ngIf="article">
+            <h1 style="font-size: 30px" >{{ article.name }}</h1>
+            <br>
+            <img  class="img-thumbnail" src="{{ article.Picture }}" alt="ALT">
+            <p class= "description" style="font-size: 16px" >{{ article.Description }}</p>
+            <p class= "description" style="font-size: 16px">{{ article.FullDescription }}</p>
+         
+            <a style="position:relative; top:1000%; margin-left: 85%; z-index:6 ;"  target="_blank" href="{{ article.Link}}">View Article</a>
+                
+          </article>
+      
+        </div>
+          <div style="align-content: center" class="fb-comments" data-href="" data-num-posts="4" data-width="100%"></div>
+      </div>
+       <div class="col-md-1">  
+          <div class="verticalLine">
+          </div>
+       </div>
+      <div class="col-md-3">
+      
+        <div class="related-articles">
+          <h2> Related Articles</h2>
+          <br>
+          <div class="allSimilarArticles" *ngFor="let similarArticle of similarArticles">
+                <div class="card hovercard">
+                  <img src="{{similarArticle.ArticlePicture}}" alt=""/>
+                  <div class="avatar">
+                    <img src="{{similarArticle.journalPicture}}" alt="" />
+                  </div>
+                  <div class="info">
+                    <div class="title" style="font-size: 100%;">
+                      {{ similarArticle.name }}
+                    </div>
+                    <!--<div class="desc">{{ similarArticle.Description }}</div>-->
+                    <!-- <div class="desc">Lorem ipsum</div>
+                    <div class="desc">Lorem ipsum</div> -->
+                  </div>
+                  <div class="bottom">
+                    <button class="btn btn-default" [routerLink]="['/article/detail', similarArticle._id]"> See Article</button>
+                  </div>
+                </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

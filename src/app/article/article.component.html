@@ -1,0 +1,79 @@
+<div style="position:relative;  margin-top:32% ; z-index:4 ;" >
+    <section class="border" >
+      <!--<button [routerLink]="['byDate']" >Recent Articles</button>
+  <a routerLink="/article">      <button class="hover"  >Top Articles</button></a>-->
+
+    <button  (click)="clear()" [class.hover]='!isRecentArticles'>Top Articles</button>
+    <button  (click)="switch()" [class.hover]='isRecentArticles' >Recent Articles</button>
+    
+    
+  </section>
+<div>
+
+<!--
+<article *ngIf="!route.isActive('/article/byDate')">-->
+<article *ngIf="!articlesbydate?.length > 0">
+<div style="position:relative;  margin-top:2% ; z-index:4 ; " class="container marketing">
+      <div class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="0"
+      [infiniteScrollThrottle]="500"
+
+      (scrolled)="onScroll()" >
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4" *ngFor="let article of articles" >
+                  <div class="card card-inverse card-info">
+                        <!--<img class="card-img-top" style="height: 200px" src="{{ article.Picture}}">-->
+                        <img [defaultImage]="defaultImage" style="height: 200px" [lazyLoad]="article.Picture" [offset]="offset">
+                        <div class="card-block">
+                                    <figure class="profile">
+                                          <img src="{{ article._journal.picture }}" class="profile-avatar" alt="">
+                                    </figure>
+                                    <h4 class="card-title mt-3">{{ article.name }}</h4>
+
+                              <div class="card-text" >
+                                    {{ article.Description }}
+                              </div>
+                              <div class="card-text" >
+                                    {{ article.FullDescription }}
+                              </div>
+                        </div>
+                        <div class="card-footer">
+                              <small>Published in {{ article.Date |  date: 'dd/MM/yyyy' }}</small>
+                              <button class="btn btn-info float-right btn-sm rightPosition" (click)="onSelect(article)" [routerLink]="['detail', article._id]">Read</button>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+</article>
+
+<article *ngIf="articlesbydate?.length > 0">
+<div style="position:relative;  margin-top:2% ; z-index:4 ; " class="container marketing">
+      <div class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="0"
+      [infiniteScrollThrottle]="500"
+
+      (scrolled)="onScroll()" >
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4" *ngFor="let article of articlesbydate" >
+                  <div class="card card-inverse card-info">
+                        <img [defaultImage]="defaultImage" style="height: 200px" [lazyLoad]="article.Picture" [offset]="offset">
+                        <div class="card-block">
+                                    <figure class="profile">
+                                          <img src="{{ article._journal.picture }}" class="profile-avatar" alt="">
+                                    </figure>
+                                    <h4 class="card-title mt-3">{{ article.name }}</h4>
+
+                              <div class="card-text">
+                                    {{ article.Description }}
+                              </div>
+                        </div>
+                        <div class="card-footer">
+                              <small>Published in {{ article.Date |  date: 'dd/MM/yyyy' }}</small>
+                              <button class="btn btn-info float-right btn-sm rightPosition" (click)="onSelect(article)" [routerLink]="['detail', article._id]">Read</button>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+</article>

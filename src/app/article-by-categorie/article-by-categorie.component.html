@@ -1,0 +1,38 @@
+
+<div class="body">
+            <div  style="position:relative;  margin:25% 0% 5% 5% ; z-index:4 ; ">
+                        <div class="search-results"
+                        infiniteScroll
+                        [infiniteScrollDistance]="0"
+                        [infiniteScrollThrottle]="300"
+
+                        (scrolled)="onScroll()" >
+                        <div class="row row-margin-bottom"  >
+                                    <div class="articles" *ngFor="let article of articles">
+                                                <div class="col-md-4 no-padding lib-item" data-category="view" >
+                                                      <div class="card card-inverse card-info">
+                                                            <img class="card-img-top" src="{{ article.Picture}}">
+                                                            <div class="card-block">
+                                                                        <figure class="profile">
+                                                                              <img src="{{ article._journal.picture }}" style="height: 220px" class="profile-avatar" alt="">
+                                                                        </figure>
+                                                                        <h4 class="card-title mt-3">{{ article.name }}</h4>
+
+                                                                  <div class="card-text">
+                                                                        {{ article.Description }}
+                                                                  </div>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                  <small>Published in {{ article.Date |  date: 'dd/MM/yyyy' }}</small>
+                                                                  <button class="btn btn-info float-right btn-sm rightPosition"  [routerLink]="['/detail', article._id]">Read</button>
+                                                            </div>
+
+                                                </div>
+
+                                                </div>
+                                                <!-- <div class="col-md-1"></div> -->
+                                    </div>
+                        </div>
+            </div>
+</div>
+</div>

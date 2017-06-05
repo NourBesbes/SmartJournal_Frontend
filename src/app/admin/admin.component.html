@@ -1,0 +1,294 @@
+
+<div class="container-2">
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title">
+                    <h2>Dashboard</h2>
+                    <ol class="breadcrumb">
+                        <li class="active"><i class="fa fa-dashboard"></i> SMART JOURNAL</li>
+                        <li class="pull-right">
+                            <div id="reportrange" class="btn btn-danger btn-square date-picker">
+                                <div class="wrap">
+                                    <a (click)="logged()"  class="logout" style="color:white;" >Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+           
+            <div class="col-lg-2 col-sm-3">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading green">
+                            <i class="fa fa-money fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content green">
+                        <div class="circle-tile-description text-faded">
+                            Articles
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            {{articles.length}}
+                        </div>
+                        <a href="#" class="circle-tile-footer">More Info <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-3">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading blue">
+                            <i class="fa fa-tasks fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content blue">
+                        <div class="circle-tile-description text-faded">
+                            Journaux
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                          {{journals.length}}
+                            <span id="sparklineB"></span>
+                        </div>
+                        <a href="#" class="circle-tile-footer">More Info <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-3">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading red">
+                            <i class="fa fa-shopping-cart fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content red">
+                        <div class="circle-tile-description text-faded">
+                            Categories
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                          {{categories.length}}
+                            <span id="sparklineC"></span>
+                        </div>
+                        <a href="#" class="circle-tile-footer">More Info <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="articles">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-6">
+                                    <h3 class="panel-title">Journaux</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-list">
+                                <thead>
+                                    <tr>
+                                        <!-- <th><em class="fa fa-cog"></em></th> -->
+                                        <th class="hidden-xs">ID</th>
+                                        <th>Name</th>
+                                        <!--<th>Picture</th>-->
+                                         <th>Nombre Article</th>
+                                                 <th>Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let journal of journals | paginate: {itemsPerPage: 4, currentPage:page, id: '1'}; let i = index">
+                                    <tr>
+                                        <td class="hidden-xs">1</td>
+                                        <td WIDTH="20%">{{journal.lienFb}}</td>
+                                        <!--<td>{{journal.picture}}</td>-->
+                                          <td>{{journal.articles.length}}</td>
+                                        <td align="center">
+                                        
+                                            <button type="button"  (click)="DeleteJournal(journal)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove-circle" 
+                                           
+                                            ></span> Delete</button>
+                                        </td>
+                                    </tr>                                                                 
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                    <pagination-controls (pageChange)="page = $event" id="1"
+                      maxSize="4"
+                      directionLinks="true"
+                      autoHide="true">
+                     </pagination-controls>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="newArticle">
+                            <div class="well-block">
+                                <div class="well-title">
+                                    <h2>ADD NEW JOURNAL</h2>
+                                </div>
+                                <form #journalForm="ngForm" (ngSubmit)="onSubmit()">
+                                    <!-- Form start -->
+                                    <div class="row">
+
+                                        <!-- Text input-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label" for="lienFb">Facebook ID</label>
+                                                <input type="text" placeholder="Url Facebook"  class="form-control" pattern="https?://.+" id="lienFb" required
+                                                [(ngModel)]="model.lienFb" name="lienFb" #lienFb="ngModel"
+                                                >
+                                                <div *ngIf="lienFb.errors && (lienFb.dirty || lienFb.touched)" class="alert alert-danger">
+                                                <div [hidden]="!lienFb.errors.required">
+                                                     URL is required!
+                                                    </div>
+                                                <div [hidden]="!lienFb.errors.pattern">
+                                                  Must be a valid URL!
+                                                </div>
+                                                  </div>
+                                                
+                                                </div>
+                                        </div>
+                                        <!-- Text input-->
+
+                                        <!-- Select Basic -->
+                                        <div class="col-md-12">
+                                            <div class="form-group"  id="time">
+                                                <label class="control-label" for="_categorie">Categorie</label>
+                                                <select class="form-control"  id="_categorie"  required placeholder="categorie"
+                                                [(ngModel)]="model._categorie" name="_categorie"
+                                                #categorie="ngModel">
+                                                    <option  *ngFor="let categorie of categories" value="categorie">{{categorie.name}}</option>
+                                        
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Button -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-success" [disabled]="!journalForm.form.valid">ADD JOURNAL</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- form end -->
+                                <notification-bar></notification-bar>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-6">
+                                    <h3 class="panel-title">Categories</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-list">
+                                <thead>
+                                    <tr>
+                                        <!-- <th><em class="fa fa-cog"></em></th> -->
+                                        <th class="hidden-xs">ID</th>
+                                        <th>Name</th>
+                                         <th>Nombre de journaux</th>
+                                        <th>Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let categorie of categories| paginate: {itemsPerPage: 4, currentPage:page1, id1: '1'}; let j = index">
+                                    <tr>
+                                        <td class="hidden-xs">1</td>
+                                        <td WIDTH="20%">{{categorie.name}}</td>
+                                    <td>{{categorie._journal.length}}</td>
+                                        <td align="center">
+                                     
+                                            <button type="button"(click)="DeleteCategorie(categorie)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove-circle"></span> Delete</button>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+
+                        </div>
+             <div class="panel-footer">
+                            <div class="row">
+                             <pagination-controls (pageChange)="page1 = $event" id1="1"
+                      maxSize="4"
+                      directionLinks="true"
+                      autoHide="true">
+                      </pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="newArticle">
+                            <div class="well-block">
+                                <div class="well-title">
+                                    <h2>ADD NEW CATEGORIE</h2>
+                                </div>
+                                <form #categoriForm="ngForm" (ngSubmit)="onSubmitCategorie()" >
+                                    <!-- Form start -->
+                                    <div class="row">
+
+                                        <!-- Text input-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label" for="categorie">Categorie</label>
+                                                <input id="categorie" name="categorie" type="text" placeholder="categorie" 
+                                                minlength="4" maxlength="20"
+                                                class="form-control input-md" required
+                                                [(ngModel)]="categorieModel.name"  #categorie="ngModel"
+                                                >
+                                                 <div *ngIf="categorie.errors && (categorie.dirty || categorie.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!categorie.errors.minlength">
+                                                             Categorie must be at least 4 characters long.
+                                                        </div>
+                                                        <div [hidden]="!categorie.errors.maxlength">
+                                                            Categorie cannot be more than 20 characters long.
+                                                        </div>
+                                                
+                                                  </div>
+                                            </div>
+                                        </div>
+                                        <!-- Text input-->
+
+                                  
+                                        <!-- Button -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="singlebutton" class="btn btn-success" [disabled]="!categoriForm.form.valid">ADD CATEGORIE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <notification-bar></notification-bar>
+                                <!-- form end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
